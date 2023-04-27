@@ -4,11 +4,29 @@ SELECT YEAR(`enrolment_date`), COUNT(`id`)
 FROM `students`
 GROUP BY YEAR (`enrolment_date`);
 
+oppure
+
+SELECT YEAR(`students`.`enrolment_date`) AS `anno`, COUNT(`id`) AS `iscritti`
+FROM `students`
+GROUP BY `anno`;
+
+(solo più di mille studenti con HAVING):
+SELECT YEAR(`students`.`enrolment_date`) AS `anno`, COUNT(`id`) AS `iscritti`
+FROM `students`
+GROUP BY `anno`
+HAVING `iscritti` > 1000;
+
 2. Contare gli insegnanti che hanno l'ufficio nello stesso edificio
 
 SELECT `teachers`.`office_address`, COUNT(`id`)
 FROM `teachers`
 GROUP BY `teachers`.`office_address`;
+
+oppure
+
+SELECT COUNT(`id`) AS `insegnanti`, `teachers`.`office_address` AS `edificio`
+FROM `teachers`
+GROUP BY `edificio`;
 
 3. Calcolare la media dei voti di ogni appello d'esame
 
@@ -16,4 +34,14 @@ SELECT *
 FROM `exam_student`
 ORDER BY (`exam_student`.`vote`);
 
+oppure
+
+SELECT `exam_id`, AVG (`vote`) AS `media.voti`
+FROM `exam_student`
+GROUP BY `exam_id`;
+
 4. Contare quanti corsi di laurea ci sono per ogni dipartimento
+
+SELECT COUNT (`id`) AS `corsi`, `department_id` AS `dipartimento`
+FROM `degrees`
+GROUP BY `department_id`;
